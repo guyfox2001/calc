@@ -1,6 +1,8 @@
 <template>
     <div class="inputBox">
-        {{mathString}}
+        <span>
+            {{mathString}}
+        </span>
     </div>
 </template>
 
@@ -15,18 +17,22 @@
 
 <style scoped>
     .inputBox{
+        display: flex;
         width: calc(20vw + 5px);
         height: 10vh;
-        line-height: 10vh;
-        vertical-align: bottom;
-        padding-left: 1px;
+        /*line-height: 10vh;*/
+        padding-right: 1px;
         font-family: CalculatorFont;
         font-size: calc(3vh + 3vw);
         color: red;
+        justify-content: flex-end;
+        align-items: flex-end;
         border: lightblue;
         background: lightsteelblue;
-        display: flex;
-        align-content: flex-end;
-        justify-content: flex-end;
+    }
+    span{
+        /*display: flex;*/
+        /*align-items: flex-end;*/
+        /*justify-content: flex-end;*/
     }
 </style>

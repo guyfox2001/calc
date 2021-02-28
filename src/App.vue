@@ -2,6 +2,7 @@
     <HelloWorld/>
     <div class="calc">
         <div class="inputPanel">
+            <div class="calcMemory">{{calcMem}}</div>
             <input-box :math-string="getCalcRes"/>
         </div>
         <div class="allButtons">
@@ -29,7 +30,8 @@
             return {
                 leastPressedBtn: '*',
                 calcMem: 0,
-                calcRes: "0"
+                calcRes: "0",
+                flagCh: false
             }
         },
         components: {
@@ -48,84 +50,21 @@
             keyDown(defaultButton) {
                 console.log(defaultButton);
                 switch (defaultButton) {
-                    case "0": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '0'
+                    default: {
+                        if (this.flagCh == true){
+                            this.calcRes ='0'
+                            this.flagCh = false
+                        }
+                        if (this.calcRes !=='0') {
+                            this.calcRes += defaultButton
+
+                        }
+                        else {
+                                this.calcRes = defaultButton
                         }
                         break;
                     }
-                    case "1": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '1'
-                        } else {
-                            this.calcRes = "1"
-                        }
-                        break;
-                    }
-                    case "2": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '2'
-                        } else {
-                            this.calcRes = "2"
-                        }
-                        break;
-                    }
-                    case "3": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '3'
-                        } else {
-                            this.calcRes = "3"
-                        }
-                        break;
-                    }
-                    case "4": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '4'
-                        } else {
-                            this.calcRes = "4"
-                        }
-                        break;
-                    }
-                    case "5": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '5'
-                        } else {
-                            this.calcRes = "5"
-                        }
-                        break;
-                    }
-                    case "6": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '6'
-                        } else {
-                            this.calcRes = "6"
-                        }
-                        break;
-                    }
-                    case "7": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '7'
-                        } else {
-                            this.calcRes = "7"
-                        }
-                        break;
-                    }
-                    case "8": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '8'
-                        } else {
-                            this.calcRes = "8"
-                        }
-                        break;
-                    }
-                    case "9": {
-                        if (this.calcRes !== "0") {
-                            this.calcRes += '9'
-                        } else {
-                            this.calcRes = "9"
-                        }
-                        break;
-                    }
+
                     case ".": {
                         if (!this.calcRes.includes(".")) {
                             this.calcRes += '.'
@@ -133,42 +72,34 @@
                         break;
                     }
                     case "-": {
-                        this.leastPressedBtn = '-'
-                        if (this.calcMem !== 0) {
-                            this.calcRes = (this.calcMem - parseFloat(this.calcRes)).toString()
-                        } else {
+                        this.leastPressedBtn ='-'
+                        if (this.calcMem === 0){
                             this.calcMem = parseFloat(this.calcRes)
-                            this.calcRes = "0"
+                            this.calcRes = '0'
                         }
                         break;
                     }
                     case "+": {
-                        this.leastPressedBtn = '+'
-                        if (this.calcMem !== 0) {
-                            this.calcRes = (this.calcMem + parseFloat(this.calcRes)).toString()
-                        } else {
+                        this.leastPressedBtn ='+'
+                        if (this.calcMem === 0){
                             this.calcMem = parseFloat(this.calcRes)
-                            this.calcRes = "0"
+                            this.calcRes = '0'
                         }
                         break;
                     }
                     case "*": {
-                        this.leastPressedBtn = '*'
-                        if (this.calcMem !== 0) {
-                            this.calcRes = (this.calcMem * parseFloat(this.calcRes)).toString()
-                        } else {
+                        this.leastPressedBtn ='*'
+                        if (this.calcMem === 0){
                             this.calcMem = parseFloat(this.calcRes)
-                            this.calcRes = "0"
+                            this.calcRes = '0'
                         }
                         break;
                     }
                     case "/": {
-                        this.leastPressedBtn = '/'
-                        if (this.calcMem !== 0) {
-                            this.calcRes = (this.calcMem / parseFloat(this.calcRes)).toString()
-                        } else {
+                        this.leastPressedBtn ='/'
+                        if (this.calcMem === 0){
                             this.calcMem = parseFloat(this.calcRes)
-                            this.calcRes = "0"
+                            this.calcRes = '0'
                         }
                         break;
                     }
@@ -177,6 +108,7 @@
                             case "-": {
                                 this.calcRes = (this.calcMem - parseFloat(this.calcRes)).toString()
                                 console.log(this.calcRes);
+                                console.log(this.calcMem);
                                 break;
                             }
                             case "+": {
@@ -192,6 +124,9 @@
                                 break;
                             }
                         }
+                        this.calcMem = 0
+                        console.log(this.calcMem)
+                        this.flagCh = true
                         break;
                     }
                     case "CE": {
@@ -241,6 +176,10 @@
         src: url("./fonts/Digital7-1e1Z.ttf");
     }
 
+    .calcMemory{
+        position: absolute;
+        top: 0; left: 0;
+    }
     .calcNumbers {
         margin: 0px;
         justify-content: flex-end;
@@ -265,6 +204,7 @@
 
     .inputPanel {
         /*width: 20vw;*/
+        position: relative;
         display: flex;
         justify-content: center;
     }
