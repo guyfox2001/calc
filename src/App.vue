@@ -60,6 +60,7 @@
 
                         }
                         else {
+
                                 this.calcRes = defaultButton
                         }
                         break;
